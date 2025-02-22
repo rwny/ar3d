@@ -1,0 +1,18 @@
+{
+   "objects": [
+     {
+       "id": "wall_1",
+       "name": "North Wall",
+       "position": [0, 0, 0],
+       "type": "wall",
+       "status": "operational"
+     },
+     {
+       "id": "door_1",
+       "name": "Main Door",
+       "position": [2, 0, 0],
+       "type": "door",
+       "status": "open"
+     }
+   ]
+ }
