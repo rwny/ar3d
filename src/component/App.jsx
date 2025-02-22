@@ -26,19 +26,42 @@ function App() {
 
   return (
     <>
-      <Canvas camera={{ position: [-15, 15, 15] }} gl={{ antialias: true }}>
+      <Canvas 
+        camera={{ 
+          position: [-55, 55, 55],
+          fov: 45,  // Add field of view (default is 75)
+          near: 0.1,
+          far: 1000
+        }} 
+        shadows 
+        gl={{ antialias: true }}
+      >
         <LightScene />
-        <Model 
-          onObjectClick={handleObjectClick} 
-          visibleFloors={visibleFloors}
-          visibilityController={visibilityController}
-        />
+        {/* <group position={[-30,0,-50]} > */}
+
+        <group >
+
+          <mesh>
+            <icosahedronGeometry args={[0.5, 2]} /> 
+            <meshBasicMaterial color="red" />
+          </mesh>
+
+          <Model 
+            onObjectClick={handleObjectClick} 
+            visibleFloors={visibleFloors}
+            visibilityController={visibilityController}
+            />
+        </group>
+
       </Canvas>
+
       <Sidebar objectData={selectedObject} />
+
       <Controls 
         visibleFloors={visibleFloors} 
         onToggleFloor={handleToggleFloor}
       />
+
     </>
   );
 }

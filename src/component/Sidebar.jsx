@@ -5,9 +5,9 @@ function Sidebar({ objectData }) {
     <div className="sidebar">
       
       {objectData ? (
-        <div style={{ marginTop: '10px', lineHeight: '1.5' }}>
-          <h3>AAD </h3>
-          <div>{objectData.buildingName +' - '+objectData.floorLevel+' flr'+' - '+objectData.name} </div>
+        <div style={{ marginTop: '10px', lineHeight: '1.2' }}>
+          <h3>AAD {objectData.buildingName} </h3>
+          {/* <div>{objectData.floorLevel+' flr'+' - '+objectData.name} </div> */}
           {/* <div>Building : {objectData.buildingName +' - '+objectData.floor+'floor' || 'N/A'}</div> */}
           <div>RoomID : {objectData.name || 'Unnamed'}</div>
           <div>RoomName : 'Unnamed'</div>
@@ -15,7 +15,7 @@ function Sidebar({ objectData }) {
           {/* <div>Floor : {objectData.floor+'floor' || 'N/A'}</div> */}
         </div>
       ) : (
-        <p>no data</p>
+        <p> </p>
       )}
     </div>
   );
