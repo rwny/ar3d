@@ -4,6 +4,7 @@ import * as THREE from 'three';
 
 function Model({ onObjectClick, visibleFloors, visibilityController }) {
   const { scene } = useGLTF('./models/ar20x1.glb');
+  console.log(scene)
   const modelRef = useRef();
   const [label, setLabel] = useState(null);
   const [selectedMesh, setSelectedMesh] = useState(null);
