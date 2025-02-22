@@ -37,7 +37,6 @@ function App() {
         gl={{ antialias: true }}
       >
         <LightScene />
-        {/* <group position={[-30,0,-50]} > */}
 
         <group >
 
