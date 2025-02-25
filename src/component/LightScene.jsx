@@ -1,17 +1,38 @@
-import { OrbitControls, Grid } from "@react-three/drei";
-import { useState, useEffect } from 'react';
+import { CameraControls } from "@react-three/drei";
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
 function LightScene() {
-
+  const controlsRef = useRef();
   const showGrid = false;
   const showGround = false;
+
+  useEffect(() => {
+    if (controlsRef.current) {
+      // Set initial camera position
+      controlsRef.current.setLookAt(
+        -55, 55, 55,   // camera position
+        0, 0, 0,       // target (center point)
+        true           // animate
+      );
+      
+      // Set the offset for sidebar compensation
+      controlsRef.current.setFocalOffset(20, 0, 0, true);
+      
+      // Set zoom boundaries around center point
+      controlsRef.current.maxDistance = 200;
+      controlsRef.current.minDistance = 10;
+      
+      // Maintain center point during orbiting
+      controlsRef.current.setOrbitPoint(0, 0, 0);
+    }
+  }, []);
 
   return (
     <>
       <ambientLight intensity={0.5} />
       <directionalLight 
         position={[3, 3, 3]} 
-        // castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
       />
@@ -42,14 +63,18 @@ function LightScene() {
       ) }
 
       <axesHelper args={[10]} />
-      <OrbitControls 
-        minPolarAngle={Math.PI / 4} // 45 degrees from top
-        maxPolarAngle={Math.PI / 2.2} // 90 degrees (horizontal)
-        enableDamping
+
+      <CameraControls 
+        ref={controlsRef}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI / 2.2}
         dampingFactor={0.05}
+        smoothTime={0}
+        dollyToCursor={false}
       />
+
     </>
-  )
+  );
 }
 
 export default LightScene;

@@ -4,7 +4,6 @@ import './App.css';
 import LightScene from './LightScene.jsx';
 import Model from './Model.jsx';
 import Sidebar from './Sidebar.jsx';
-import Controls from './FloorControl.jsx';
 import visibilityController from '../utils/VisibilityController';
 import sceneManager from '../utils/SceneManager';
 import OverviewScene from './OverviewScene.jsx';
@@ -36,6 +35,8 @@ function App() {
     });
   };
 
+  const SIDEBAR_WIDTH = 200;
+
   return (
     <>
       <Canvas 
@@ -65,15 +66,11 @@ function App() {
 
       <Sidebar 
         objectData={selectedObject} 
-        scene={currentScene}
-        onBack={() => sceneManager.returnToOverview()}
-      />
-
-      <Controls 
-        visibleFloors={visibleFloors} 
+        currentScene={currentScene}
+        selectedObject={selectedObject}
+        visibleFloors={visibleFloors}
         onToggleFloor={handleToggleFloor}
       />
-
     </>
   );
 }
