@@ -21,7 +21,7 @@ function LightScene() {
           infiniteGrid 
           cellSize={1} 
           sectionSize={50}
-          cellColor="#444"
+          cellColor="#aaa"
           sectionColor="#800"
         />
       )}

@@ -2,40 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useGLTF, Html } from "@react-three/drei";
 import * as THREE from 'three';
 
-const POSITION_OFFSET = {
-  x: -40,
-  y: 0,
-  z: -40
-};
-
-const BUILDING_DATA = [
-  { url: './models/ar00x1.glb', position: [0, 0, 0] },
-  { url: './models/ar12x1.glb', position: [0, 0, 0] },
-  { url: './models/ar13x1.glb', position: [48, 0, 0] },
-  { url: './models/ar14x1.glb', position: [48, 0, 26] },
-  { url: './models/ar20x1.glb', position: [0, 0, 85.5] },
-];
-
-function Model({ onObjectClick, visibleFloors, visibilityController }) {
+function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityController }) {
   const model1 = useGLTF(BUILDING_DATA[0].url);
-  const model2 = useGLTF(BUILDING_DATA[1].url);
-  const model3 = useGLTF(BUILDING_DATA[2].url); 
-  const model4 = useGLTF(BUILDING_DATA[3].url); 
-  const model5 = useGLTF(BUILDING_DATA[4].url); 
-
-  const models = [model1, model2, model3, model4, model5];
-  console.log('asdf asdf asdf',models[0]);
-
-  useEffect(() => {
-    models.forEach((model, index) => {
-      if (model && model.scene) {
-        console.log(`Model ${index + 1} loaded successfully:`, BUILDING_DATA[index].url);
-      } else {
-        console.error(`Failed to load model ${index + 1}:`, BUILDING_DATA[index].url);
-      }
-    });
-  }, [models]);
-
+  const models = [model1];
   const [label, setLabel] = useState(null);
   const [selectedMesh, setSelectedMesh] = useState(null);
   const modelRefs = useRef([]);
@@ -57,39 +26,18 @@ function Model({ onObjectClick, visibleFloors, visibilityController }) {
   };
 
   useEffect(() => {
-    const lightColors = [
-      "lightyellow",
-      "lightsalmon",
-    ];
+    const lightColors = ["lightyellow", "lightsalmon"];
 
     models.forEach((model, index) => {
       try {
-        if (!model || !model.scene) {
-          console.error(`Model ${index} failed to load:`, model);
-          return;
-        }
-
+        if (!model || !model.scene) return;
         const scene = model.scene;
         setMaterialForChildren(scene, lightColors);
-
-        scene.position.set(
-          BUILDING_DATA[index].position[0],
-          BUILDING_DATA[index].position[1],
-          BUILDING_DATA[index].position[2]
-        );
-
-        scene.traverse((child) => {
+        scene.traverse(child => {
           if (child.isMesh) {
             child.castShadow = true;
           }
         });
-
-        const boundingBox = new THREE.Box3().setFromObject(scene);
-        const center = boundingBox.getCenter(new THREE.Vector3());
-        const size = boundingBox.getSize(new THREE.Vector3());
-        console.log(`Model ${index} Size:`, size);
-
-        console.log(`Model ${index} loaded and positioned at:`, BUILDING_DATA[index].position);
       } catch (error) {
         console.error(`Error processing model ${index}:`, error);
       }
@@ -151,16 +99,9 @@ function Model({ onObjectClick, visibleFloors, visibilityController }) {
     clickedObject.material.emissive.setHex(0xff6600);
     setSelectedMesh(clickedObject);
     
-    // Convert world coordinates to local coordinates
-    const localPosition = e.point.clone();
-    localPosition.sub(new THREE.Vector3(POSITION_OFFSET.x, POSITION_OFFSET.y, POSITION_OFFSET.z));
-    
-    console.log('Click world position:', e.point);
-    console.log('Click local position:', localPosition);
-    
     setLabel({
       name: clickedObject.name,
-      position: localPosition
+      position: e.point
     });
     
     onObjectClick && onObjectClick({
@@ -171,7 +112,7 @@ function Model({ onObjectClick, visibleFloors, visibilityController }) {
   };
 
   return (
-    <group position={[POSITION_OFFSET.x, POSITION_OFFSET.y, POSITION_OFFSET.z]}>
+    <group>
       {models.map((model, index) => (
         model && model.scene ? (
           <primitive
@@ -191,7 +132,7 @@ function Model({ onObjectClick, visibleFloors, visibilityController }) {
             padding: '2px 4px',
             color: 'white',
             fontSize: '10px',
-            transform: 'translate(-50%, -50%)', // Center both horizontally and vertically
+            transform: 'translate(-50%, -50%)',
             textAlign: 'center'
           }}
         >
@@ -201,9 +142,5 @@ function Model({ onObjectClick, visibleFloors, visibilityController }) {
     </group>
   );
 }
-
-BUILDING_DATA.forEach(building => {
-  useGLTF.preload(building.url);
-});
 
 export default Model;

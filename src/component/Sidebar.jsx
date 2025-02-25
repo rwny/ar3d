@@ -5,7 +5,7 @@ function Sidebar({ objectData }) {
     <div className="sidebar">
       
       {objectData ? (
-        <div style={{ marginTop: '10px', lineHeight: '1.2' }}>
+        <div style={{ marginTop: '10px', lineHeight: '1.5' }}>
           <h3>AAD {objectData.buildingName} </h3>
           {/* <div>{objectData.floorLevel+' flr'+' - '+objectData.name} </div> */}
           {/* <div>Building : {objectData.buildingName +' - '+objectData.floor+'floor' || 'N/A'}</div> */}

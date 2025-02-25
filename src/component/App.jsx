@@ -6,10 +6,22 @@ import Model from './Model.jsx';
 import Sidebar from './Sidebar.jsx';
 import Controls from './FloorControl.jsx';
 import visibilityController from '../utils/VisibilityController';
+import sceneManager from '../utils/SceneManager';
+import OverviewScene from './OverviewScene.jsx';
+import BuildingDetailScene from './BuildingDetailScene.jsx';
 
 function App() {
+  const [currentScene, setCurrentScene] = useState('overview');
+  const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [selectedObject, setSelectedObject] = useState(null);
   const [visibleFloors, setVisibleFloors] = useState(['1', '2']);
+
+  useEffect(() => {
+    return sceneManager.subscribe(({ scene, building }) => {
+      setCurrentScene(scene);
+      setSelectedBuilding(building);
+    });
+  }, []);
 
   const handleToggleFloor = (floor) => {
     const newVisibleFloors = visibilityController.toggleFloor(floor);
@@ -29,7 +41,7 @@ function App() {
       <Canvas 
         camera={{ 
           position: [-55, 55, 55],
-          fov: 45,  // Add field of view (default is 75)
+          fov: 45,
           near: 0.1,
           far: 1000
         }} 
@@ -38,23 +50,24 @@ function App() {
       >
         <LightScene />
 
-        <group >
-
-          <mesh>
-            <icosahedronGeometry args={[0.5, 2]} /> 
-            <meshBasicMaterial color="red" />
-          </mesh>
-
-          <Model 
-            onObjectClick={handleObjectClick} 
+        {currentScene === 'overview' ? (
+          <OverviewScene onObjectClick={handleObjectClick} />
+        ) : (
+          <BuildingDetailScene 
+            buildingId={selectedBuilding}
+            onObjectClick={handleObjectClick}
             visibleFloors={visibleFloors}
             visibilityController={visibilityController}
-            />
-        </group>
-
+          />
+        )}
+        
       </Canvas>
 
-      <Sidebar objectData={selectedObject} />
+      <Sidebar 
+        objectData={selectedObject} 
+        scene={currentScene}
+        onBack={() => sceneManager.returnToOverview()}
+      />
 
       <Controls 
         visibleFloors={visibleFloors} 
