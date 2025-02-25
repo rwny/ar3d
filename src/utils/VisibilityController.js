@@ -16,9 +16,9 @@ class VisibilityController {
 
   isVisible(object) {
     // Add debug logging
-    console.log('Checking visibility for:', object.name);
-    console.log('Floor level:', object.userData.floorLevel);
-    console.log('Visible floors:', Array.from(this.visibleFloors));
+    // console.log('Checking visibility for:', object.name);
+    // console.log('Floor level:', object.userData.floorLevel);
+    // console.log('Visible floors:', Array.from(this.visibleFloors));
 
     // If no floor level is set, make it visible
     if (!object.userData.floorLevel) {

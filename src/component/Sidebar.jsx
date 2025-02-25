@@ -1,5 +1,5 @@
 import React from 'react';
-import sceneManager from '../utils/SceneManager';
+import NavigationButtons from './NavigationButtons';
 
 function Sidebar({ 
   objectData, 
@@ -8,31 +8,25 @@ function Sidebar({
   visibleFloors,
   onToggleFloor 
 }) {
-  const handleBack = () => {
-    sceneManager.returnToOverview();
-  };
-
-  const handleViewDetail = () => {
-    if (selectedObject) {
-      const buildingId = selectedObject.name.toLowerCase();
-      sceneManager.selectBuilding(buildingId);
-    }
-  };
 
   // Styles
   const sidebarStyle = {
     position: 'absolute',
+    color: 'white',
     right: '0',
     top: '0',
-    width: '250px',
+    width: '240px',
     height: '100%',
-    backgroundColor: '#f4f4f4',
-    borderLeft: '1px solid #ddd',
-    padding: '20px',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backdropFilter: 'blur(10px)',
+    borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+    padding: '24px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px'
+    gap: '24px',
+    // borderRadius: '16px 0 0 16px',
+    // boxShadow: '-4px 0 8px rgba(0, 0, 0, 0.1)'
   };
 
   const buttonStyle = {
@@ -69,34 +63,28 @@ function Sidebar({
       {currentScene === 'detail' && (
         <div className="floor-section">
           <h4>Floor Controls</h4>
-          {['1', '2', '3', '4'].map(floor => (
-            <button
-              key={floor}
-              onClick={() => onToggleFloor(floor)}
-              style={{
-                ...floorButtonStyle,
-                opacity: visibleFloors.includes(floor) ? 1 : 0.5
-              }}
-            >
-              Floor {floor}
-            </button>
+          {[ '2', '1'].map(floor => (
+            <div key={floor} style={{ display: 'flex', justifyContent: 'center' }}>
+              <button
+                onClick={() => onToggleFloor(floor)}
+                style={{
+                  ...floorButtonStyle,
+                  opacity: visibleFloors.includes(floor) ? 1 : 0.5,
+                  margin: '4px 0'
+                }}
+              >
+                {floor === '1' ? '1st Floor' : '2nd Floor'}
+              </button>
+            </div>
           ))}
         </div>
       )}
 
       {/* Navigation Section */}
-      <div className="navigation-section">
-        {currentScene === 'overview' && selectedObject && (
-          <button onClick={handleViewDetail} style={buttonStyle}>
-            View {selectedObject.name} →
-          </button>
-        )}
-        {currentScene === 'detail' && (
-          <button onClick={handleBack} style={buttonStyle}>
-            ← Back to Overview
-          </button>
-        )}
-      </div>
+      <NavigationButtons 
+        currentScene={currentScene}
+        selectedObject={selectedObject}
+      />
     </div>
   );
 }

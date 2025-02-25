@@ -9,22 +9,19 @@ function LightScene() {
 
   useEffect(() => {
     if (controlsRef.current) {
-      // Set initial camera position
+      // Set initial camera position accounting for offset
       controlsRef.current.setLookAt(
         -55, 55, 55,   // camera position
-        0, 0, 0,       // target (center point)
+        10, 0, 0,     // target (offset center point)
         true           // animate
       );
       
       // Set the offset for sidebar compensation
-      controlsRef.current.setFocalOffset(20, 0, 0, true);
+      controlsRef.current.setFocalOffset(10, 0, 0, true);
       
       // Set zoom boundaries around center point
       controlsRef.current.maxDistance = 200;
-      controlsRef.current.minDistance = 10;
-      
-      // Maintain center point during orbiting
-      controlsRef.current.setOrbitPoint(0, 0, 0);
+      controlsRef.current.minDistance = 50;
     }
   }, []);
 
@@ -69,8 +66,9 @@ function LightScene() {
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 2.2}
         dampingFactor={0.05}
-        smoothTime={0}
-        dollyToCursor={false}
+        smoothTime={0.2}
+        dollyToCursor={true}
+        target={[10, 0, 0]}
       />
 
     </>

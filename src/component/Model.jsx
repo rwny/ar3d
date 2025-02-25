@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useGLTF, Html } from "@react-three/drei";
 import * as THREE from 'three';
 
-function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityController }) {
+function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityController, onBoundingBoxCalculated }) {
   const model1 = useGLTF(BUILDING_DATA[0].url);
   const models = [model1];
   const [label, setLabel] = useState(null);
@@ -26,8 +26,20 @@ function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityControll
   };
 
   useEffect(() => {
-    const lightColors = ["lightyellow", "lightsalmon"];
+    const lightColors = [
+      "lightyellow", 
+      "lightsalmon",
+      "lightblue",
+      "lightgreen",
+      "lightpink",
+      "lightcyan",
+      "lightcoral",
+      "lightseagreen",
+      "lightskyblue",
+      "lightsteelblue"
+    ];
 
+    const box = new THREE.Box3();
     models.forEach((model, index) => {
       try {
         if (!model || !model.scene) return;
@@ -36,12 +48,21 @@ function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityControll
         scene.traverse(child => {
           if (child.isMesh) {
             child.castShadow = true;
+            box.expandByObject(child);
           }
         });
       } catch (error) {
         console.error(`Error processing model ${index}:`, error);
       }
     });
+
+    if (onBoundingBoxCalculated) {
+      const size = new THREE.Vector3();
+      box.getSize(size);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+      onBoundingBoxCalculated({ size, center });
+    }
   }, []);
 
   useEffect(() => {
@@ -49,14 +70,7 @@ function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityControll
       if (model && model.scene) {
         model.scene.traverse((child) => {
           if (child.isMesh) {
-            if (index === 4) {
-              console.log('Model5 mesh:', child.name);
-              console.log('Floor level:', child.userData.floorLevel);
-              console.log('Visibility check:', visibilityController.isVisible(child));
-              child.visible = true;
-            } else {
-              child.visible = visibilityController.isVisible(child);
-            }
+            child.visible = visibilityController.isVisible(child);
           }
         });
       }

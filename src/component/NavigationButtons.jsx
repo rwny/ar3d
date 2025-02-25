@@ -31,16 +31,14 @@ function NavigationButtons({ currentScene, selectedObject }) {
 
   return (
     <div style={{
-      position: 'absolute',
+      position: 'fixed',
+      bottom: '20px',
       left: '20px',
-      top: '20px',
-      zIndex: 1000,
-      width: '250px',
-      height: '100%',
-      boxSizing: 'border-box',
-      padding: '20px',
-      backgroundColor: '#f4f4f4',
-      borderRight: '1px solid #ddd'
+      width: '200px',
+      borderRadius: '8px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }}>
       {currentScene === 'overview' && selectedObject && (
         <button onClick={handleViewDetail} style={buttonStyle}>

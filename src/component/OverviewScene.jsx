@@ -39,7 +39,7 @@ function OverviewScene({ onObjectClick }) {
         const center = boundingBox.getCenter(new THREE.Vector3());
         
         labels.push({
-          name: object.name,
+          name: object.name.toUpperCase(),
           position: center
         });
       }
@@ -87,13 +87,14 @@ function OverviewScene({ onObjectClick }) {
           position={label.position}
           center
           style={{ 
-            background: '#222',
+            // background: '#aaa',
             padding: '2px 4px',
-            color: 'white',
+            color: 'black',
             fontSize: '10px',
             transform: 'translate(-50%, -50%)',
             textAlign: 'center',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            borderRadius: '4px'
           }}
         >
           {label.name}
