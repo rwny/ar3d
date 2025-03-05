@@ -1,0 +1,94 @@
+{
+  "objects": [
+    {
+      "id": "ar12",
+      "name": "Classroom 101",
+      "type": "office",
+      "status": "operational"
+    },
+    {
+      "id": "ar13",
+      "name": "shop โคมไฟ",
+      "type": "classroom",
+      "status": "renovating"
+    },
+    {
+      "id": "ar14",
+      "name": "shop สี",
+      "type": "workshop",
+      "status": "closed"
+    },
+    {
+      "id": "ar15",
+      "name": "Lab - Chemistry",
+      "type": "lab",
+      "status": "maintenance"
+    },
+    {
+      "id": "ar16",
+      "name": "Storage Area B",
+      "type": "office",
+      "status": "operational"
+    },
+    {
+      "id": "ar17",
+      "name": "shop โลหะ",
+      "type": "storage",
+      "status": "under construction"
+    },
+    {
+      "id": "ar18",
+      "name": "Office Admin",
+      "type": "office",
+      "status": "operational"
+    },
+    {
+      "id": "ar19",
+      "name": "shop ไม้",
+      "type": "lab",
+      "status": "maintenance"
+    },
+    {
+      "id": "ar20",
+      "name": "Meeting Room",
+      "type": "classroom",
+      "status": "operational"
+    },
+    {
+      "id": "ar21",
+      "name": "Office Marketing",
+      "type": "office",
+      "status": "maintenance"
+    },
+    {
+      "id": "ar22",
+      "name": "Classroom 102",
+      "type": "classroom",
+      "status": "operational"
+    },
+    {
+      "id": "ar23",
+      "name": "shop พลังงาน",
+      "type": "storage",
+      "status": "renovating"
+    },
+    {
+      "id": "ar24",
+      "name": "Storage Area A",
+      "type": "workshop",
+      "status": "closed"
+    },
+    {
+      "id": "ar25",
+      "name": "Lab - Physics",
+      "type": "classroom",
+      "status": "renovating"
+    },
+    {
+      "id": "ar30",
+      "name": "Lab - Furnitures",
+      "type": "workshop",
+      "status": "operational"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGLTF, Html } from "@react-three/drei";
 import * as THREE from 'three';
+import ModelLoader from '../utils/ModelLoader';
 
 function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityController, onBoundingBoxCalculated }) {
   const model1 = useGLTF(BUILDING_DATA[0].url);
@@ -117,11 +118,14 @@ function Model({ BUILDING_DATA, onObjectClick, visibleFloors, visibilityControll
       name: clickedObject.name,
       position: e.point
     });
+
+    const modelData = ModelLoader.getModelData(clickedObject.name);
     
     onObjectClick && onObjectClick({
       name: clickedObject.name,
       buildingName: clickedObject.userData.buildingName,
-      floorLevel: clickedObject.userData.floorLevel
+      floorLevel: clickedObject.userData.floorLevel,
+      modelData: modelData // Pass the model data
     });
   };
 

@@ -31,7 +31,8 @@ function App() {
     setSelectedObject({
       name: objectData.name,
       buildingName: objectData.buildingName,
-      floorLevel: objectData.floorLevel
+      floorLevel: objectData.floorLevel,
+      modelData: objectData.modelData // Receive the model data
     });
   };
 

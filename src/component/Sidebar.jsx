@@ -46,6 +46,19 @@ function Sidebar({
     margin: '5px 0'
   };
 
+  // New style for model data section
+  const modelDataStyle = {
+    textAlign: 'right',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px'
+  };
+  
+  const dataEntryStyle = {
+    display: 'flex',
+    justifyContent: 'space-between'
+  };
+
   return (
     <div style={sidebarStyle}>
       {/* Object Info Section */}
@@ -58,6 +71,29 @@ function Sidebar({
           </>
         )}
       </div>
+
+      {/* Model Data Section - updated for right alignment */}
+      {objectData && objectData.modelData && (
+        <div style={modelDataStyle}>
+          <h3>Model Data:</h3>
+          <div style={dataEntryStyle}>
+            <span>ID:</span>
+            <span>{objectData.modelData.id}</span>
+          </div>
+          <div style={dataEntryStyle}>
+            <span>Name:</span>
+            <span>{objectData.modelData.name}</span>
+          </div>
+          <div style={dataEntryStyle}>
+            <span>Type:</span>
+            <span>{objectData.modelData.type}</span>
+          </div>
+          <div style={dataEntryStyle}>
+            <span>Status:</span>
+            <span>{objectData.modelData.status}</span>
+          </div>
+        </div>
+      )}
 
       {/* Floor Control Section */}
       {currentScene === 'detail' && (
