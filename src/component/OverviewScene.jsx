@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import sceneManager from '../utils/SceneManager';
 import ModelLoader from '../utils/ModelLoader';
 
-function OverviewScene({ onObjectClick }) {
+function OverviewScene({ onObjectClick, setCardData, enableImageFunctionality }) {
   const model = useGLTF(ModelLoader.getOverviewModelUrl());
   const [selectedObject, setSelectedObject] = useState(null);
   const [objectLabels, setObjectLabels] = useState([]);
@@ -41,7 +41,7 @@ function OverviewScene({ onObjectClick }) {
     setObjectLabels(labels);
   }, [model]);
 
-  const handleBuildingSelect = (e) => {
+  const handleBuildingSelect = async (e) => {
     e.stopPropagation();
     const clickedObject = e.object;
     
@@ -69,10 +69,23 @@ function OverviewScene({ onObjectClick }) {
     if (buildingInfo) {
       sceneManager.selectedBuildingInfo = buildingInfo;
     }
+
+    // Dynamically import the image if the functionality is enabled
+    if (enableImageFunctionality) {
+      try {
+        const imageModule = await import(`./images/${buildingId}.png`);
+        setCardData({
+          imageUrl: imageModule.default // Update with the correct path to your images
+        });
+      } catch (error) {
+        console.error(`Error loading image for ${buildingId}:`, error);
+        setCardData({ imageUrl: null });
+      }
+    }
   };
 
   return (
-    <group  >
+    <group>
       <primitive
         object={model.scene}
         onClick={handleBuildingSelect}
@@ -83,9 +96,9 @@ function OverviewScene({ onObjectClick }) {
           position={label.position}
           center
           style={{ 
-            // background: '#aaa',
+            background: '#000',
             padding: '2px 4px',
-            color: 'black',
+            color: 'white',
             fontSize: '10px',
             transform: 'translate(-50%, -50%)',
             textAlign: 'center',

@@ -8,19 +8,19 @@
     },
     {
       "id": "ar13",
-      "name": "shop โคมไฟ",
+      "name": "shop ไม้",
       "type": "classroom",
       "status": "renovating"
     },
     {
       "id": "ar14",
-      "name": "shop สี",
+      "name": "shop Textile",
       "type": "workshop",
       "status": "closed"
     },
     {
       "id": "ar15",
-      "name": "Lab - Chemistry",
+      "name": "shop ดำ",
       "type": "lab",
       "status": "maintenance"
     },
@@ -89,6 +89,12 @@
       "name": "Lab - Furnitures",
       "type": "workshop",
       "status": "operational"
+    },
+    {
+      "id": "00road",
+      "name": ".",
+      "type": ".",
+      "status": "."
     }
   ]
 }

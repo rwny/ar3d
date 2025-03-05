@@ -11,12 +11,19 @@
       - "position": [0, 0, 0]
       - "type": "workshop"
       - "status": "operational"
+         - 101
+         - 102
+         - 103
+         - 104
    - ar14
       - "id": "ar14"
       - "name": "shop Textile"
       - "position": [0, 0, 0]
       - "type": "workshop"
       - "status": "operational"
+         - 101
+         - 102
+         - 103
    - ar15
       - "id": "ar15"
       - "name": "shop ดำ"

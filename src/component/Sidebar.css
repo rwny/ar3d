@@ -1,0 +1,60 @@
+.sidebar {
+  position: absolute;
+  color: white;
+  top: 0;
+  width: 240px;
+  height: 100%;
+  background-color: rgba(62, 84, 90, 0.15);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: right 0.3s ease;
+}
+
+.sidebar-hidden {
+  right: -240px;
+}
+
+.sidebar-visible {
+  right: 0;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.floor-button {
+  background-color: #555;
+  margin: 5px 0;
+}
+
+.model-data {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-entry {
+  display: flex;
+  justify-content: space-between;
+}
+
+.static-text {
+  color: #aaa;
+}
+
+.data-text {
+  color: white;
+}

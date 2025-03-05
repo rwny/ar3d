@@ -1,4 +1,5 @@
 import React from 'react';
+import './Sidebar.css';
 import NavigationButtons from './NavigationButtons';
 
 function Sidebar({ 
@@ -6,91 +7,40 @@ function Sidebar({
   currentScene, 
   selectedObject,
   visibleFloors,
-  onToggleFloor 
+  onToggleFloor,
+  visible // New prop for visibility
 }) {
-
-  // Styles
-  const sidebarStyle = {
-    position: 'absolute',
-    color: 'white',
-    right: '0',
-    top: '0',
-    width: '240px',
-    height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    backdropFilter: 'blur(10px)',
-    borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-    padding: '24px',
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '24px',
-    // borderRadius: '16px 0 0 16px',
-    // boxShadow: '-4px 0 8px rgba(0, 0, 0, 0.1)'
-  };
-
-  const buttonStyle = {
-    padding: '10px 20px',
-    fontSize: '14px',
-    backgroundColor: '#333',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%'
-  };
-
-  const floorButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: '#555',
-    margin: '5px 0'
-  };
-
-  // New style for model data section
-  const modelDataStyle = {
-    textAlign: 'right',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '4px'
-  };
-  
-  const dataEntryStyle = {
-    display: 'flex',
-    justifyContent: 'space-between'
-  };
-
   return (
-    <div style={sidebarStyle}>
+    <div className={`sidebar ${visible ? 'sidebar-visible' : 'sidebar-hidden'}`}>
       {/* Object Info Section */}
       <div className="info-section">
         {objectData && (
           <>
-            <h3>AAD {objectData.buildingName}</h3>
-            <div>RoomID: {objectData.name || 'Unnamed'}</div>
-            <div>RoomName: 'Unnamed'</div>
+            <h3>AAD {objectData.modelData.id.toUpperCase()}</h3>
+            {/* <div>RoomID: {objectData.name || 'Unnamed'}</div> */}
           </>
         )}
       </div>
 
       {/* Model Data Section - updated for right alignment */}
       {objectData && objectData.modelData && (
-        <div style={modelDataStyle}>
-          <h3>Model Data:</h3>
-          <div style={dataEntryStyle}>
-            <span>ID:</span>
-            <span>{objectData.modelData.id}</span>
+        <div className="model-data">
+          <h3>ข้อมูลอาคาร:</h3>
+          <div className="data-entry">
+            <span className="static-text">ID:</span>
+            <span className="data-text">{objectData.modelData.id.toUpperCase()}</span>
           </div>
-          <div style={dataEntryStyle}>
-            <span>Name:</span>
-            <span>{objectData.modelData.name}</span>
+          <div className="data-entry">
+            <span className="static-text">Name:</span>
+            <span className="data-text">{objectData.modelData.name}</span>
           </div>
-          <div style={dataEntryStyle}>
-            <span>Type:</span>
-            <span>{objectData.modelData.type}</span>
+          <div className="data-entry">
+            <span className="static-text">Type:</span>
+            <span className="data-text">{objectData.modelData.type}</span>
           </div>
-          <div style={dataEntryStyle}>
-            <span>Status:</span>
-            <span>{objectData.modelData.status}</span>
+          <div className="data-entry">
+            <span className="static-text">Status:</span>
+            <span className="data-text">{objectData.modelData.status}</span>
           </div>
         </div>
       )}
@@ -103,11 +53,8 @@ function Sidebar({
             <div key={floor} style={{ display: 'flex', justifyContent: 'center' }}>
               <button
                 onClick={() => onToggleFloor(floor)}
-                style={{
-                  ...floorButtonStyle,
-                  opacity: visibleFloors.includes(floor) ? 1 : 0.5,
-                  margin: '4px 0'
-                }}
+                className={`button floor-button ${visibleFloors.includes(floor) ? '' : 'opacity-50'}`}
+                style={{ margin: '4px 0' }}
               >
                 {floor === '1' ? '1st Floor' : '2nd Floor'}
               </button>
